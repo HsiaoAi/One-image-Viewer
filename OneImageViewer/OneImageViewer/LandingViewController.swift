@@ -31,7 +31,7 @@ extension LandingViewController: UIScrollViewDelegate {
 
         // Set up ImageView
         let TintColorOfimageTemplate = UIColor.white
-        if let image = UIImage(named: "icon_photo")?.withRenderingMode(.alwaysTemplate) {
+        if let image = UIImage(named: Assets.iconPhoto.rawValue)?.withRenderingMode(.alwaysTemplate) {
             imageView = UIImageView(image: image)
             imageView.contentMode = .center
             imageView.image = image
