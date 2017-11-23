@@ -18,11 +18,13 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPickImageButton()
+        setUpImageView()
         imagePicker.delegate = self
     }
 
 }
 
+// UI
 extension LandingViewController {
     func setUpPickImageButton() {
         // Two colors background
@@ -56,11 +58,20 @@ extension LandingViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
+
+    func setUpImageView() {
+        let TintColorOfimageTemplate = UIColor.white
+        if let image = UIImage(named: Assets.iconPhoto.rawValue)?.withRenderingMode(.alwaysTemplate) {
+            imageView.contentMode = .center
+            imageView.image = image
+            imageView.tintColor = TintColorOfimageTemplate
+        }
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate Methods
 extension LandingViewController {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             print("here")
             imageView.contentMode = .scaleAspectFit
@@ -69,7 +80,7 @@ extension LandingViewController {
 
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
