@@ -133,7 +133,12 @@ extension LandingViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
+// Hide status bar
+extension LandingViewController {
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+}
 // MARK: - Selector
 private extension Selector {
 
