@@ -1,0 +1,9 @@
+/* (No Comment) */
+"CFBundleName" = "單圖顯示器";
+
+/* (No Comment) */
+"NSPhotoLibraryAddUsageDescription" = "您想要存圖片至照片圖庫嗎？";
+
+/* (No Comment) */
+"NSPhotoLibraryUsageDescription" = "同意讓此程式使用您的照片圖庫嗎？";
+
