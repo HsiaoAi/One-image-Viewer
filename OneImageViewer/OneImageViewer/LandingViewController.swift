@@ -18,6 +18,8 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Background color
+        self.view.backgroundColor = UIColor.CustomTheme.black43
         setUpPickImageButton()
         setUpScrollViewAndImageView()
         imagePicker.delegate = self
