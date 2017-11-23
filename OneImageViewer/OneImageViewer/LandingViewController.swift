@@ -28,20 +28,19 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
 extension LandingViewController: UIScrollViewDelegate {
 
     func setUpScrollViewAndImageView() {
-        imageView = UIImageView(image: UIImage(named: "icon_photo"))
         
+        // Set up ImageView
         let TintColorOfimageTemplate = UIColor.white
         if let image = UIImage(named: "icon_photo")?.withRenderingMode(.alwaysTemplate) {
-            print("here")
+            imageView = UIImageView(image: image)
             imageView.contentMode = .center
             imageView.image = image
             imageView.tintColor = TintColorOfimageTemplate
-            //imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
         }
-        //設定滾動區域及大小
-        print(view.bounds)
+        
+        // Set up ScrollView
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 375, height: 590))
-        scrollView.contentSize = imageView.bounds.size
+        //scrollView.contentSize = CGSize(width: 2000, height: 2000)
 
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
@@ -49,14 +48,12 @@ extension LandingViewController: UIScrollViewDelegate {
         //當裝置旋轉時，會重新調整大小
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-        //1.將滾動區域的位置從原點在左上角改為(1000, 450)
-        scrollView.contentOffset = CGPoint(x: 1000, y: 450)
 
         //2. 縮放功能需要指定delegate self 跟縮放比例
         scrollView.delegate = self
-        scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 10.0
-        scrollView.zoomScale = 2.0
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 2.0
+        //scrollView.zoomScale = 1.0
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -76,23 +73,26 @@ extension LandingViewController: UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -77.0).isActive = true
         
-        updateMinZoomScaleForSize(view.bounds.size)
+        imageView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+
+        
         
     }
-    
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        let imageViewSize = imageView.frame.size
-        let scrollViewSize = scrollView.bounds.size
-        
-        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
-        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
-        
-        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
-    }
-    
-    
 }
+
 
 // UI
 extension LandingViewController {
