@@ -28,7 +28,7 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
 extension LandingViewController: UIScrollViewDelegate {
 
     func setUpScrollViewAndImageView() {
-        
+
         // Set up ImageView
         let TintColorOfimageTemplate = UIColor.white
         if let image = UIImage(named: "icon_photo")?.withRenderingMode(.alwaysTemplate) {
@@ -37,50 +37,53 @@ extension LandingViewController: UIScrollViewDelegate {
             imageView.image = image
             imageView.tintColor = TintColorOfimageTemplate
         }
-        
+        imageView.isUserInteractionEnabled = true
+
         // Set up ScrollView
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 375, height: 590))
-        //scrollView.contentSize = CGSize(width: 2000, height: 2000)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
 
+        // Add subviews
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
 
-        //當裝置旋轉時，會重新調整大小
         scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
-
-        //2. 縮放功能需要指定delegate self 跟縮放比例
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 2.0
-        //scrollView.zoomScale = 1.0
+
     }
-    
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+        return self.imageView
     }
-    
+
     fileprivate func updateMinZoomScaleForSize(_ size: CGSize) {
         let widthScale = size.width / imageView.bounds.width
         let heightScale = size.height / imageView.bounds.height
-        
+
         let minScale = min(widthScale, heightScale)
         scrollView.minimumZoomScale = minScale
-        
+
         scrollView.zoomScale = minScale
-        
+
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
+        // ScrollView
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -77.0).isActive = true
-        
+
+        // ImageView
         imageView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
         imageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
@@ -88,11 +91,8 @@ extension LandingViewController: UIScrollViewDelegate {
         imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
 
-        
-        
     }
 }
-
 
 // UI
 extension LandingViewController {
@@ -130,18 +130,6 @@ extension LandingViewController {
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-
-//    func setUpImageView() {
-//        let TintColorOfimageTemplate = UIColor.white
-//        if let image = UIImage(named: "icon_photo")?.withRenderingMode(.alwaysTemplate) {
-//            imageView.contentMode = .center
-//            imageView.image = image
-//            imageView.tintColor = TintColorOfimageTemplate
-//            imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 200)
-//            self.view.addSubview(imageView)
-//        }
-//
-//    }
 }
 
 // MARK: - UIImagePickerControllerDelegate Methods
@@ -159,8 +147,6 @@ extension LandingViewController {
         dismiss(animated: true, completion: nil)
     }
 }
-
-//
 
 // MARK: - Selector
 private extension Selector {
