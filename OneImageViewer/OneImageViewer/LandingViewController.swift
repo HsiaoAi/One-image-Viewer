@@ -48,8 +48,7 @@ extension LandingViewController: UIScrollViewDelegate {
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
 
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
+        // ZoomScale Setting
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 2.0
