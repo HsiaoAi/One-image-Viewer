@@ -12,7 +12,7 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     // Properties
     @IBOutlet weak var pickUpButton: UIButton!
-    weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
@@ -54,8 +54,24 @@ extension LandingViewController {
 
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-
         present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate Methods
+extension LandingViewController {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            print("here")
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = pickedImage
+        }
+
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
