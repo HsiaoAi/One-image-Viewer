@@ -21,10 +21,10 @@ class LandingViewController: UIViewController, UIImagePickerControllerDelegate, 
         setUpPickImageButton()
         setUpScrollViewAndImageView()
         imagePicker.delegate = self
-
     }
 
 }
+
 extension LandingViewController: UIScrollViewDelegate {
 
     func setUpScrollViewAndImageView() {
@@ -50,24 +50,12 @@ extension LandingViewController: UIScrollViewDelegate {
 
         // ZoomScale Setting
         scrollView.delegate = self
-        scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 2.0
 
     }
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return self.imageView
-    }
-
-    fileprivate func updateMinZoomScaleForSize(_ size: CGSize) {
-        let widthScale = size.width / imageView.bounds.width
-        let heightScale = size.height / imageView.bounds.height
-
-        let minScale = min(widthScale, heightScale)
-        scrollView.minimumZoomScale = minScale
-
-        scrollView.zoomScale = minScale
-
     }
 
     override func viewWillLayoutSubviews() {
@@ -89,7 +77,6 @@ extension LandingViewController: UIScrollViewDelegate {
         imageView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-
     }
 }
 
